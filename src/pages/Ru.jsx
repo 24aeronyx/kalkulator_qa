@@ -96,13 +96,16 @@ export default function Rucalc() {
           className="border rounded px-2 py-1"
         />
       </div>
-      <div className="flex justify-center mt-6">
+      <div className="flex gap-8 justify-center mt-6">
         <button
           onClick={handleCalculate}
           className="bg-white border-2 border-r-4 border-b-4 rounded-lg border-black text-black w-auto px-4 py-2"
         >
           Hitung Qa
         </button>
+        <button className="bg-white border-2 border-r-4 border-b-4 rounded-lg border-black text-black w-auto px-4 py-2"><Link to="/rurumus" className="">
+          Lihat Rumus
+        </Link></button>
       </div>
       <div className="mt-6">
         <p className="text-center text-2xl font-bold">

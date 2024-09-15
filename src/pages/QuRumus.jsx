@@ -24,8 +24,8 @@ export default function Qurumus() {
                     />
                 </svg>
             </Link>
-            <img src="https://i.imgur.com/rTejwRi.png"/>
-            <img src="https://i.imgur.com/XkVqdWb.png"/>
+            <img className="rounded-t-xl" src="https://i.imgur.com/rTejwRi.png"/>
+            <img className="rounded-b-xl"src="https://i.imgur.com/XkVqdWb.png"/>
         </div>
     );
 }

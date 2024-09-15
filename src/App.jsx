@@ -4,6 +4,7 @@ import Qucalc from "./pages/Qu";
 import Rucalc from "./pages/Ru";
 import Home from "./pages/Home";
 import Qurumus from "./pages/QuRumus";
+import Rurumus from "./pages/RuRumus";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/qu" element={<Qucalc />} />
             <Route path="/ru" element={<Rucalc />} />
             <Route path="/qurumus" element={<Qurumus/>}/>
+            <Route path="/rurumus" element={<Rurumus/>}/>
           </Routes>
         </Router>
       </div>
