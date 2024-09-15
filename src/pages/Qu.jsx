@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Qucalc() {
-  const [diameter, setDiameter] = useState(0);
-  const [tebal, setTebal] = useState(0);
-  const [penetrasi, setPenetrasi] = useState(0);
-  const [beratHammer, setBeratHammer] = useState(0);
-  const [kedalaman, setKedalaman] = useState(0);
-  const [qu, setQu] = useState(0);
+  const [diameter, setDiameter] = useState(null);
+  const [tebal, setTebal] = useState(null);
+  const [penetrasi, setPenetrasi] = useState(null);
+  const [beratHammer, setBeratHammer] = useState(null);
+  const [kedalaman, setKedalaman] = useState(null);
+  const [qu, setQu] = useState(null);
+
 
   // Nilai konstanta
   const h = 2.5;
@@ -22,6 +23,15 @@ export default function Qucalc() {
   const bt = 2.4 * kedalaman * lp;
 
   const handleCalculate = () => {
+    if (diameter === null || tebal === null || penetrasi === null || beratHammer === null || kedalaman === null) {
+      alert('Harap lengkapi semua input!');
+      return;
+    }
+
+    const e = 4700 * mutuBeton ** 0.5 * 10;
+    const lp = 0.25 * Math.PI * (diameter ** 2 - ((diameter - 2 * tebal) ** 2));
+    const bt = 2.4 * kedalaman * lp;
+
     const quResult =
       ((ef * beratHammer * h) /
         ((penetrasi / 1000) + ((1 / 2) * (k1 + ((pua * kedalaman) / e) + k3)))) *
@@ -61,35 +71,35 @@ export default function Qucalc() {
         <label className="text-right">Diameter Tiang (m): </label>
         <input
           type="number"
-          value={diameter}
+          value={diameter ?? ''}
           onChange={(e) => setDiameter(parseFloat(e.target.value))}
           className="border rounded px-2 py-1"
         />
         <label className="text-right">Tebal Tiang (m): </label>
         <input
           type="number"
-          value={tebal}
+          value={tebal ?? ''}
           onChange={(e) => setTebal(parseFloat(e.target.value))}
           className="border rounded px-2 py-1"
         />
         <label className="text-right">Penetrasi (S) (mm): </label>
         <input
           type="number"
-          value={penetrasi}
+          value={penetrasi ?? ''}
           onChange={(e) => setPenetrasi(parseFloat(e.target.value))}
           className="border rounded px-2 py-1"
         />
         <label className="text-right">Berat Hammer (Ton): </label>
         <input
           type="number"
-          value={beratHammer}
+          value={beratHammer ?? ''}
           onChange={(e) => setBeratHammer(parseFloat(e.target.value))}
           className="border rounded px-2 py-1"
         />
         <label className="text-right">Kedalaman (m): </label>
         <input
           type="number"
-          value={kedalaman}
+          value={kedalaman ?? ''}
           onChange={(e) => setKedalaman(parseFloat(e.target.value))}
           className="border rounded px-2 py-1"
         />
@@ -101,15 +111,16 @@ export default function Qucalc() {
         >
           Hitung Qa
         </button>
-        <button className="bg-white border-2 border-r-4 border-b-4 rounded-lg border-black text-black w-auto px-4 py-2"><Link to="/qurumus" className="">
-          Lihat Rumus
-        </Link></button>
+        <Link to="/qurumus" className="">
+          <button className="bg-white border-2 border-r-4 border-b-4 rounded-lg border-black text-black w-auto px-4 py-2">
+            Lihat Rumus
+          </button></Link>
       </div>
       <div className="mt-6">
         <p className="text-center text-2xl font-bold ">
           Qa (Kapasitas Tiang Izin)
           <br />
-          {qa.toFixed(2)} Ton
+          {qa !== null ? qa.toFixed(2) : 'Belum dihitung'} Ton
         </p>
       </div>
     </div>
