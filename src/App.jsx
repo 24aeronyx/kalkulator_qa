@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Qucalc from "./pages/Qu";
 import Rucalc from "./pages/Ru";
 import Home from "./pages/Home";
+import Qurumus from "./pages/QuRumus";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/qu" element={<Qucalc />} />
             <Route path="/ru" element={<Rucalc />} />
+            <Route path="/qurumus" element={<Qurumus/>}/>
           </Routes>
         </Router>
       </div>

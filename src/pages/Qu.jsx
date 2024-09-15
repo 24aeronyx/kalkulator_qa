@@ -24,13 +24,13 @@ export default function Qucalc() {
   const handleCalculate = () => {
     const quResult =
       ((ef * beratHammer * h) /
-        ((penetrasi/1000) + ((1 / 2) * (k1 + ((pua * kedalaman) / e) + k3)))) *
+        ((penetrasi / 1000) + ((1 / 2) * (k1 + ((pua * kedalaman) / e) + k3)))) *
       ((beratHammer + n ** 2 * bt) / (beratHammer + bt));
 
     setQu(quResult);
   };
 
-  const qa = qu/2.5
+  const qa = qu / 2.5
 
   return (
     <div className="relative">
@@ -94,13 +94,16 @@ export default function Qucalc() {
           className="border rounded px-2 py-1"
         />
       </div>
-      <div className="flex justify-center mt-6">
+      <div className="flex gap-8 justify-center mt-6">
         <button
           onClick={handleCalculate}
           className="bg-white border-2 border-r-4 border-b-4 rounded-lg border-black text-black w-auto px-4 py-2"
         >
           Hitung Qa
         </button>
+        <button className="bg-white border-2 border-r-4 border-b-4 rounded-lg border-black text-black w-auto px-4 py-2"><Link to="/qurumus" className="">
+          Lihat Rumus
+        </Link></button>
       </div>
       <div className="mt-6">
         <p className="text-center text-2xl font-bold ">
