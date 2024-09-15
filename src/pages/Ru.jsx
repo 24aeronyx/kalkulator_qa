@@ -7,33 +7,25 @@ export default function Rucalc() {
   const [penetrasi, setPenetrasi] = useState(0);
   const [beratHammer, setBeratHammer] = useState(0);
   const [kedalaman, setKedalaman] = useState(0);
+  const [kAverage, setKAverage] = useState(0); // State untuk nilai k average
   const [qu, setQu] = useState(0);
-  const [ks, setKs] = useState(Array(10).fill(0)); // Array untuk nilai k1 hingga k10
+
   // Nilai konstanta
   const h = 2.5;
-  const n = 0.4;
+  const n = 0.5;
   const ef = 0.9;
-  const lp = 0.25 * Math.PI * (diameter ** 2 - (diameter - 2 * tebal) ** 2);
+  const lp = 0.25 * Math.PI * (diameter ** 2 - ((diameter - 2 * tebal) ** 2));
   const bt = 2.4 * kedalaman * lp;
 
   const handleCalculate = () => {
-    // Menghitung rata-rata dari k1 hingga k10
-    const kAverage = ks.reduce((acc, k) => acc + k, 0) / ks.length;
-
     const quResult =
-      ((ef * beratHammer * h) / (penetrasi + kAverage / 1000)) * // Menggunakan rata-rata k dibagi 10
+      ((ef * beratHammer * h) / ((penetrasi/1000) + kAverage / 100)) * // Menggunakan k average
       ((beratHammer + n ** 2 * bt) / (beratHammer + bt));
 
     setQu(quResult);
   };
 
   const qa = qu / 2.5;
-
-  const handleKsChange = (index, value) => {
-    const newKs = [...ks];
-    newKs[index] = parseFloat(value) || 0;
-    setKs(newKs);
-  };
 
   return (
     <div className="relative">
@@ -75,7 +67,7 @@ export default function Rucalc() {
           onChange={(e) => setTebal(parseFloat(e.target.value))}
           className="border rounded px-2 py-1"
         />
-        <label className="text-right">Penetrasi (S) (m): </label>
+        <label className="text-right">Penetrasi (S) (mm): </label>
         <input
           type="number"
           value={penetrasi}
@@ -96,18 +88,13 @@ export default function Rucalc() {
           onChange={(e) => setKedalaman(parseFloat(e.target.value))}
           className="border rounded px-2 py-1"
         />
-        {/* Input untuk k1 hingga k10 */}
-        {ks.map((k, index) => (
-          <React.Fragment key={index}>
-            <label className="text-right">{`k${index + 1}:`}</label>
-            <input
-              type="number"
-              value={k}
-              onChange={(e) => handleKsChange(index, e.target.value)}
-              className="border rounded px-2 py-1"
-            />
-          </React.Fragment>
-        ))}
+        <label className="text-right">k (cm): </label>
+        <input
+          type="number"
+          value={kAverage}
+          onChange={(e) => setKAverage(parseFloat(e.target.value))}
+          className="border rounded px-2 py-1"
+        />
       </div>
       <div className="flex justify-center mt-6">
         <button
@@ -118,7 +105,7 @@ export default function Rucalc() {
         </button>
       </div>
       <div className="mt-6">
-        <p className="text-center text-2xl font-bold ">
+        <p className="text-center text-2xl font-bold">
           Qa (Kapasitas Tiang Izin)
           <br />
           {qa.toFixed(2)} Ton

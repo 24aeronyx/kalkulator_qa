@@ -11,20 +11,20 @@ export default function Qucalc() {
 
   // Nilai konstanta
   const h = 2.5;
-  const n = 0.4;
+  const n = 0.5;
   const k1 = 0.006;
   const k3 = 0.005;
   const mutuBeton = 52; // dalam kg/m2
   const ef = 0.9;
   const pua = 162;
   const e = 4700 * mutuBeton ** 0.5 * 10;
-  const lp = 0.25 * Math.PI * (diameter ** 2 - (diameter - 2 * tebal) ** 2);
+  const lp = 0.25 * Math.PI * (diameter ** 2 - ((diameter - 2 * tebal) ** 2));
   const bt = 2.4 * kedalaman * lp;
 
   const handleCalculate = () => {
     const quResult =
       ((ef * beratHammer * h) /
-        (penetrasi + ((1 / 2) * (k1 + (pua * kedalaman) / e + k3)))) *
+        ((penetrasi/1000) + ((1 / 2) * (k1 + ((pua * kedalaman) / e) + k3)))) *
       ((beratHammer + n ** 2 * bt) / (beratHammer + bt));
 
     setQu(quResult);
@@ -72,7 +72,7 @@ export default function Qucalc() {
           onChange={(e) => setTebal(parseFloat(e.target.value))}
           className="border rounded px-2 py-1"
         />
-        <label className="text-right">Penetrasi (S) (m): </label>
+        <label className="text-right">Penetrasi (S) (mm): </label>
         <input
           type="number"
           value={penetrasi}
