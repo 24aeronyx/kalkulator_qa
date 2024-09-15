@@ -24,7 +24,7 @@ export default function Rurumus() {
                     />
                 </svg>
             </Link>
-            <img className="ml-16 rounded-xl" src="https://i.imgur.com/NWtGNnB.png"/>
+            <img className="rounded-xl lg:ml-16" src="https://i.imgur.com/NWtGNnB.png"/>
         </div>
     );
 }
