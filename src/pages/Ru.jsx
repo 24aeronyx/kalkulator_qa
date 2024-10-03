@@ -7,27 +7,23 @@ export default function Rucalc() {
   const [penetrasi, setPenetrasi] = useState(null);
   const [beratHammer, setBeratHammer] = useState(null);
   const [kedalaman, setKedalaman] = useState(null);
-  const [kAverage, setKAverage] = useState(null); // State untuk nilai k average
+  const [kAverage, setKAverage] = useState(null); 
+  const [h, setH] = useState(null); 
   const [qu, setQu] = useState(null);
-
-  // Nilai konstanta
-  const h = 2.5;
-  const n = 0.5;
-  const ef = 0.9;
 
   // Cek jika nilai state tidak null
   const lp = diameter && tebal ? 0.25 * Math.PI * (diameter ** 2 - ((diameter - 2 * tebal) ** 2)) : 0;
   const bt = kedalaman ? 2.4 * kedalaman * lp : 0;
 
   const handleCalculate = () => {
-    if (diameter === null || tebal === null || penetrasi === null || beratHammer === null || kedalaman === null || kAverage === null) {
+    if (diameter === null || tebal === null || penetrasi === null || beratHammer === null || kedalaman === null || kAverage === null || h === null) {
       alert('Harap lengkapi semua input!');
       return;
     }
 
     const quResult =
-      ((ef * beratHammer * h) / ((penetrasi / 1000) + kAverage / 100)) * // Menggunakan k average
-      ((beratHammer + n ** 2 * bt) / (beratHammer + bt));
+      ((2 * beratHammer * h) / ((penetrasi / 1000) + kAverage / 100)) * // Menggunakan k average
+      ((beratHammer + 0.25 ** 2 * bt) / (beratHammer + bt));
 
     setQu(quResult);
   };
@@ -102,6 +98,13 @@ export default function Rucalc() {
           onChange={(e) => setKAverage(parseFloat(e.target.value))}
           className="border rounded px-2 py-1"
         />
+        <label className="text-right">Tinggi Jatuh Pemukul (m): </label>
+        <input
+          type="number"
+          value={h ?? ''}
+          onChange={(e) => setH(parseFloat(e.target.value))}
+          className="border rounded px-2 py-1"
+        />
       </div>
       <div className="flex gap-8 justify-center mt-6">
         <button
@@ -113,11 +116,12 @@ export default function Rucalc() {
         <Link to="/rurumus" className="">
           <button className="bg-white border-2 border-r-4 border-b-4 rounded-lg border-black text-black w-auto px-4 py-2">
             Lihat Rumus
-          </button> </Link>
+          </button>
+        </Link>
       </div>
-      <div className="mt-6">
-        <p className="text-center text-2xl font-bold">
-          Qa (Kapasitas Tiang Izin)
+      <div className="mt-6 flex justify-center">
+        <p className="text-center text-2xl font-bold bg-white center border-2 border-r-4 border-b-4 rounded-lg border-black inline-block px-4 py-2">
+          (Metode Wijaya Karya)
           <br />
           {qa !== null ? qa.toFixed(2) : 'Belum dihitung'} Ton
         </p>
